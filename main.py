@@ -3,18 +3,8 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
-#Create a function visualize a image using matplotlib
-def visualize(img):
-    plt.imshow(img)
-    plt.show()
-#Create a visualization function for a batch of images
-def plot_grid(images, n_cols=2, n_rows=2):
-    fig, axes = plt.subplots(n_rows, n_cols, figsize=(n_cols*4, n_rows*4))
-    for i, ax in enumerate(axes.flat):
-        ax.imshow(images[i])
-        ax.axis('off')
-    plt.show()
-
+from utils.plots import plot_grid,plot
+# plot_images, plot_images_grid, plot_images_grid_with_labels,plot_images_with_mask
 # Declare an augmentation pipeline
 transform = A.Compose([
     #Add crop augmentation
@@ -64,7 +54,7 @@ img = images[0]
 images = []
 #Append the transformed image to the list
 #using for loop with TQDM to show progress.
-for i in range(4):
+for i in range(15):
     #Apply the transformation to the image
     augmented = transform(image=img)['image']
     #Append the transformed image to the list
@@ -74,4 +64,4 @@ for i in range(4):
 
 
 #Plot the batch of images
-plot_grid(images)
+plot_grid(images, n_cols=5, n_rows=3,save_path='augmented_images.png')
